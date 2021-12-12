@@ -1,0 +1,1 @@
+rclone delete nat189:/Media/Movies-New --include "*.{jpg,nfo,png}" --drive-use-trash=false -vP
