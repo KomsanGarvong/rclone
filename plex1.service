@@ -1,5 +1,5 @@
 [Unit]
-Description=RClone Service
+Description=Plex1 Service
 Wants=network-online.target
 After=network-online.target
 
@@ -8,19 +8,19 @@ Type=notify
 Environment=RCLONE_CONFIG=/root/.config/rclone/rclone.conf
 KillMode=none
 RestartSec=5
-ExecStart=/usr/bin/rclone mount gdrive: /volume1/rclone/gdrive \
+ExecStart=/usr/bin/rclone mount plex1: /mnt/nvme2/plex1 \
 --allow-other \
 --dir-cache-time 1000h \
 --log-level INFO \
 --log-file /tmp/rclone_mount.log \
 --poll-interval 15s \
 --umask 000 \
---buffer-size 8M \
---max-read-ahead 128k \
---vfs-read-chunk-size 128M \
---vfs-read-chunk-size-limit 256M
+--cache-dir=/mnt/nvme2/cache \
+--vfs-cache-mode full \
+--vfs-cache-max-size 40G \
+--vfs-cache-max-age 48h \
 
-ExecStop=/bin/fusermount -uzq /volume1/rclone/gdrive
+ExecStop=/bin/fusermount -uzq /mnt/nvme2/plex1
 Restart=on-failure
 
 [Install]
