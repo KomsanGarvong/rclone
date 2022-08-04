@@ -1,0 +1,3 @@
+rclone move remote:path remote:path --include *.{mkv,mp4}
+
+rclone delete remote: --include '*.{jpg,png}' --drive-use-trash=false -vP
