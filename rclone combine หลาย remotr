@@ -1,0 +1,19 @@
+[nat189]
+type = drive
+scope = drive
+service_account_file = /mnt/cache/rclone/16.json
+team_drive = 0AIjpCyaeGZyiUk9PVA
+root_folder_id = 
+
+[master]
+type = drive
+scope = drive
+service_account_file = /mnt/cache/rclone/103.json
+team_drive = 0APJLNSSJTH-6Uk9PVA
+
+
+
+[all]
+type = combine
+upstreams = master=master: nat189=nat189:
+
