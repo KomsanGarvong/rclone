@@ -1,0 +1,36 @@
+[Unit]
+Description=RClone Service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=notify
+Environment=RCLONE_CONFIG=/root/.config/rclone/rclone.conf
+KillMode=none
+RestartSec=5
+ExecStart=/usr/bin/gclone mount all: /volume1/docker/gdrive \
+--allow-other \
+--dir-cache-time 1000h \
+--log-level INFO \
+--log-file /tmp/gclone-mount.log \
+--umask 000 \
+--uid 1000 \
+--gid 1000 \
+--user-agent root \
+--cache-dir=/volume1/docker/cache \
+--devname beepro \
+--vfs-cache-mode full \
+--vfs-cache-max-size 10G \
+--vfs-cache-poll-interval 5m \
+--vfs-cache-max-age 4h \
+--drive-random-pick-sa \
+--drive-rolling-sa \
+--drive-rolling-count=1 
+
+ExecStop=/bin/fusermount -uzq /volume1/docker/gdrive
+Restart=on-failure
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
